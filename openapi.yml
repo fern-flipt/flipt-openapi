@@ -1,0 +1,868 @@
+openapi: 3.0.1
+info:
+  title: api
+  version: 0.0.6
+paths:
+  /segments/{segmentKey}/constraints/:
+    post:
+      operationId: ConstraintsService.create
+      tags:
+        - ConstraintsService
+      parameters:
+        - name: segmentKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintsfliptConstraint'
+      security: &ref_0
+        - BasicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstraintsfliptConstraintCreateRequest'
+  /segments/{segmentKey}/constraints/{id}:
+    post:
+      operationId: ConstraintsService.update
+      tags:
+        - ConstraintsService
+      parameters:
+        - name: segmentKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstraintsfliptConstraintUpdateRequest'
+  /flags/{flagKey}/rules/{ruleId}/distributions/:
+    post:
+      operationId: DistributionsService.create
+      tags:
+        - DistributionsService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionsfliptDistribution'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DistributionsfliptDistributionCreate'
+  /flags/{flagKey}/rules/{ruleId}/distributions/{id}:
+    put:
+      operationId: DistributionsService.update
+      tags:
+        - DistributionsService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionsfliptDistribution'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DistributionsfliptDistributionUpdate'
+  /evaluate:
+    post:
+      operationId: EvaluateService.evaluate
+      tags:
+        - EvaluateService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluatefliptEvaluationResponse'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluatefliptEvaluationRequest'
+  /batch-evaluate:
+    post:
+      operationId: EvaluateService.batchEvaluate
+      tags:
+        - EvaluateService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluatefliptBatchEvaluationResponse'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluatefliptBatchEvaluationRequest'
+  /flags/:
+    post:
+      operationId: FlagsService.create
+      tags:
+        - FlagsService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagsfliptFlag'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlagsfliptCreateFlagRequest'
+  /flags/{key}:
+    put:
+      operationId: FlagsService.update
+      tags:
+        - FlagsService
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagsfliptFlag'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlagsfliptFlagUpdate'
+  /flags/{flagKey}/rules/:
+    post:
+      operationId: RulesService.create
+      tags:
+        - RulesService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RulesfliptRule'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesfliptRuleCreate'
+  /flags/{flagKey}/rules/order:
+    put:
+      operationId: RulesService.order
+      tags:
+        - RulesService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesfliptRuleOrder'
+  /flags/{flagKey}/rules/{id}:
+    put:
+      operationId: RulesService.update
+      tags:
+        - RulesService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesfliptRuleUpdate'
+  /segments/:
+    post:
+      operationId: SegmentsService.create
+      tags:
+        - SegmentsService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentsfliptSegment'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentsfliptCreateSegmentRequest'
+  /segments/{key}:
+    put:
+      operationId: SegmentsService.update
+      tags:
+        - SegmentsService
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentsfliptSegment'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentsfliptUpdateSegmentRequest'
+  /flags/{flagKey}/variants/:
+    post:
+      operationId: VariantsService.create
+      tags:
+        - VariantsService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariantsfliptVariant'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariantsfliptVariantCreate'
+  /flags/{flagKey}/variants/{id}:
+    put:
+      operationId: VariantsService.update
+      tags:
+        - VariantsService
+      parameters:
+        - name: flagKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariantsfliptVariant'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariantsfliptVariantUpdate'
+components:
+  schemas:
+    CommonsPageable:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        totalCount:
+          type: integer
+      required:
+        - nextPageToken
+        - totalCount
+    CommonsfliptComparisonType:
+      type: string
+      enum:
+        - UNKNOWN_COMPARISON_TYPE
+        - STRING_COMPARISON_TYPE
+        - NUMBER_COMPARISON_TYPE
+        - BOOLEAN_COMPARISON_TYPE
+      description: The default is UNKNOWN_COMPARISON_TYPE
+    ConstraintsfliptConstraintCreateRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CommonsfliptComparisonType'
+        property:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+      required:
+        - type
+        - property
+        - operator
+    ConstraintsfliptConstraint:
+      type: object
+      properties:
+        id:
+          type: string
+        segmentKey:
+          type: string
+        type:
+          $ref: '#/components/schemas/CommonsfliptComparisonType'
+        property:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - segmentKey
+        - type
+        - property
+        - operator
+        - value
+        - createdAt
+        - updatedAt
+    ConstraintsfliptConstraintUpdateRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CommonsfliptComparisonType'
+        property:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+      required:
+        - type
+        - property
+        - operator
+    DistributionsfliptDistribution:
+      type: object
+      properties:
+        id:
+          type: string
+        ruleId:
+          type: string
+        variantId:
+          type: string
+        rollout:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - ruleId
+        - variantId
+        - rollout
+        - createdAt
+        - updatedAt
+    DistributionsfliptDistributionCreate:
+      type: object
+      properties:
+        variantId:
+          type: string
+        rollout:
+          type: number
+          format: double
+      required:
+        - variantId
+        - rollout
+    DistributionsfliptDistributionUpdate:
+      type: object
+      properties:
+        variantId:
+          type: string
+        rollout:
+          type: number
+          format: double
+      required:
+        - variantId
+        - rollout
+    EvaluatefliptEvaluationRequest:
+      type: object
+      properties:
+        requestId:
+          type: string
+        flagKey:
+          type: string
+        entityId:
+          type: string
+        context:
+          type: string
+      required:
+        - flagKey
+        - entityId
+        - context
+    EvaluatefliptEvaluationResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        entityId:
+          type: string
+        requestContext:
+          type: string
+        match:
+          type: boolean
+        flagKey:
+          type: string
+        segmentKey:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        value:
+          type: string
+        requestDurationMillis:
+          type: number
+          format: double
+        attachment:
+          type: string
+        reasons:
+          $ref: '#/components/schemas/EvaluatefliptEvaluationReason'
+      required:
+        - requestId
+        - entityId
+        - requestContext
+        - match
+        - flagKey
+        - segmentKey
+        - timestamp
+        - value
+        - requestDurationMillis
+        - attachment
+        - reasons
+    EvaluatefliptEvaluationReason:
+      type: string
+      enum:
+        - UNKNOWN_EVALUATION_REASON
+        - FLAG_DISABLED_EVALUATION_REASON
+        - FLAG_NOT_FOUND_EVALUATION_REASON
+        - MATCH_EVALUATION_REASON
+        - ERROR_EVALUATION_REASON
+    EvaluatefliptBatchEvaluationRequest:
+      type: object
+      properties:
+        requestId:
+          type: string
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluatefliptEvaluationRequest'
+        excludeNotFound:
+          type: boolean
+      required:
+        - requests
+    EvaluatefliptBatchEvaluationResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluatefliptEvaluationResponse'
+        requestDurationMillis:
+          type: number
+          format: double
+      required:
+        - requestId
+        - response
+        - requestDurationMillis
+    FlagsfliptFlagList:
+      type: object
+      properties:
+        flags:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlagsfliptFlag'
+      required:
+        - flags
+      allOf:
+        - $ref: '#/components/schemas/CommonsPageable'
+    FlagsfliptFlag:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariantsfliptVariant'
+      required:
+        - key
+        - name
+        - description
+        - enabled
+        - createdAt
+        - updatedAt
+        - variants
+    FlagsfliptCreateFlagRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+      required:
+        - key
+        - name
+    FlagsfliptFlagUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+      required:
+        - name
+    RulesfliptRuleList:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RulesfliptRule'
+        nextPageToken:
+          type: string
+        totalCount:
+          type: integer
+      required:
+        - rules
+        - nextPageToken
+        - totalCount
+    RulesfliptRule:
+      type: object
+      properties:
+        id:
+          type: string
+        flagKey:
+          type: string
+        segmentKey:
+          type: string
+        distributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionsfliptDistribution'
+        rank:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - flagKey
+        - segmentKey
+        - distributions
+        - rank
+        - createdAt
+        - updatedAt
+    RulesfliptRuleCreate:
+      type: object
+      properties:
+        segmentKey:
+          type: string
+        rank:
+          type: integer
+      required:
+        - segmentKey
+        - rank
+    RulesfliptRuleOrder:
+      type: object
+      properties:
+        ruleIds:
+          type: array
+          items:
+            type: string
+      required:
+        - ruleIds
+    RulesfliptRuleUpdate:
+      type: object
+      properties:
+        segmentKey:
+          type: string
+      required:
+        - segmentKey
+    SegmentsfliptSegmentList:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentsfliptSegment'
+      required:
+        - segments
+      allOf:
+        - $ref: '#/components/schemas/CommonsPageable'
+    SegmentsfliptSegment:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        constraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstraintsfliptConstraint'
+        matchType:
+          $ref: '#/components/schemas/SegmentsfliptMatchType'
+      required:
+        - key
+        - name
+        - description
+        - createdAt
+        - updatedAt
+        - constraints
+        - matchType
+    SegmentsfliptMatchType:
+      type: string
+      enum:
+        - ALL_MATCH_TYPE
+        - ANY_MATCH_TYPE
+    SegmentsfliptCreateSegmentRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        matchType:
+          $ref: '#/components/schemas/SegmentsfliptMatchType'
+      required:
+        - key
+        - name
+        - description
+        - matchType
+    SegmentsfliptUpdateSegmentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        matchType:
+          $ref: '#/components/schemas/SegmentsfliptMatchType'
+      required:
+        - name
+        - description
+        - matchType
+    VariantsfliptVariant:
+      type: object
+      properties:
+        id:
+          type: string
+        flagKey:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        attachment:
+          type: string
+      required:
+        - id
+        - flagKey
+        - key
+        - name
+        - description
+        - createdAt
+        - updatedAt
+        - attachment
+    VariantsfliptVariantCreate:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        attachment:
+          type: string
+      required:
+        - key
+    VariantsfliptVariantUpdate:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        attachment:
+          type: string
+      required:
+        - key
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+servers:
+  - url: https://flipt.io/api/v1
