@@ -1,9 +1,73 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.0.11
+  version: 0.0.14
 paths:
-  /segments/{segmentKey}/constraints/:
+  /auth/v1/tokens:
+    get:
+      operationId: AuthenticationService.listTokens
+      tags:
+        - AuthenticationService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthauthenticationList'
+      security: &ref_0
+        - BasicAuth: []
+  /auth/v1/tokens/{id}:
+    delete:
+      operationId: AuthenticationService.deleteToken
+      tags:
+        - AuthenticationService
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+  /auth/v1/method/token:
+    post:
+      operationId: AuthenticationService.createToken
+      tags:
+        - AuthenticationService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthauthenticationToken'
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthauthenticationTokenCreateRequest'
+  /auth/v1/self:
+    get:
+      operationId: AuthenticationService.getSelf
+      tags:
+        - AuthenticationService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authauthentication'
+      security: *ref_0
+  /api/v1/segments/{segmentKey}/constraints/:
     post:
       operationId: ConstraintsService.create
       tags:
@@ -20,16 +84,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintsfliptConstraint'
-      security: &ref_0
-        - BasicAuth: []
+                $ref: '#/components/schemas/Constraintsconstraint'
+      security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstraintsfliptConstraintCreateRequest'
-  /segments/{segmentKey}/constraints/{id}:
+              $ref: '#/components/schemas/ConstraintsconstraintCreateRequest'
+  /api/v1/segments/{segmentKey}/constraints/{id}:
     post:
       operationId: ConstraintsService.update
       tags:
@@ -54,8 +117,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstraintsfliptConstraintUpdateRequest'
-  /flags/{flagKey}/rules/{ruleId}/distributions/:
+              $ref: '#/components/schemas/ConstraintsconstraintUpdateRequest'
+  /api/v1/flags/{flagKey}/rules/{ruleId}/distributions/:
     post:
       operationId: DistributionsService.create
       tags:
@@ -77,15 +140,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DistributionsfliptDistribution'
+                $ref: '#/components/schemas/Distributionsdistribution'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DistributionsfliptDistributionCreate'
-  /flags/{flagKey}/rules/{ruleId}/distributions/{id}:
+              $ref: '#/components/schemas/DistributionsdistributionCreateRequest'
+  /api/v1/flags/{flagKey}/rules/{ruleId}/distributions/{id}:
     put:
       operationId: DistributionsService.update
       tags:
@@ -112,15 +175,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DistributionsfliptDistribution'
+                $ref: '#/components/schemas/Distributionsdistribution'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DistributionsfliptDistributionUpdate'
-  /evaluate:
+              $ref: '#/components/schemas/DistributionsdistributionUpdateRequest'
+  /api/v1/evaluate:
     post:
       operationId: EvaluateService.evaluate
       tags:
@@ -132,15 +195,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EvaluatefliptEvaluationResponse'
+                $ref: '#/components/schemas/EvaluateevaluationResponse'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EvaluatefliptEvaluationRequest'
-  /batch-evaluate:
+              $ref: '#/components/schemas/EvaluateevaluationRequest'
+  /api/v1/batch-evaluate:
     post:
       operationId: EvaluateService.batchEvaluate
       tags:
@@ -152,15 +215,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EvaluatefliptBatchEvaluationResponse'
+                $ref: '#/components/schemas/EvaluatebatchEvaluationResponse'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EvaluatefliptBatchEvaluationRequest'
-  /flags/:
+              $ref: '#/components/schemas/EvaluatebatchEvaluationRequest'
+  /api/v1/flags/:
     post:
       operationId: FlagsService.create
       tags:
@@ -172,15 +235,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlagsfliptFlag'
+                $ref: '#/components/schemas/Flagsflag'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlagsfliptCreateFlagRequest'
-  /flags/{key}:
+              $ref: '#/components/schemas/FlagsflagCreateRequest'
+  /api/v1/flags/{key}:
     put:
       operationId: FlagsService.update
       tags:
@@ -197,15 +260,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlagsfliptFlag'
+                $ref: '#/components/schemas/Flagsflag'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlagsfliptFlagUpdate'
-  /flags/{flagKey}/rules/:
+              $ref: '#/components/schemas/FlagsflagUpdateRequest'
+  /api/v1/flags/{flagKey}/rules/:
     post:
       operationId: RulesService.create
       tags:
@@ -222,15 +285,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RulesfliptRule'
+                $ref: '#/components/schemas/Rulesrule'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RulesfliptRuleCreate'
-  /flags/{flagKey}/rules/order:
+              $ref: '#/components/schemas/RulesruleCreateRequest'
+  /api/v1/flags/{flagKey}/rules/order:
     put:
       operationId: RulesService.order
       tags:
@@ -250,8 +313,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RulesfliptRuleOrder'
-  /flags/{flagKey}/rules/{id}:
+              $ref: '#/components/schemas/RulesruleOrder'
+  /api/v1/flags/{flagKey}/rules/{id}:
     put:
       operationId: RulesService.update
       tags:
@@ -276,8 +339,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RulesfliptRuleUpdate'
-  /segments/:
+              $ref: '#/components/schemas/RulesruleUpdateRequest'
+  /api/v1/segments/:
     post:
       operationId: SegmentsService.create
       tags:
@@ -289,15 +352,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SegmentsfliptSegment'
+                $ref: '#/components/schemas/Segmentssegment'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SegmentsfliptCreateSegmentRequest'
-  /segments/{key}:
+              $ref: '#/components/schemas/SegmentssegmentCreateRequest'
+  /api/v1/segments/{key}:
     put:
       operationId: SegmentsService.update
       tags:
@@ -314,15 +377,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SegmentsfliptSegment'
+                $ref: '#/components/schemas/Segmentssegment'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SegmentsfliptUpdateSegmentRequest'
-  /flags/{flagKey}/variants/:
+              $ref: '#/components/schemas/SegmentssegmentUpdateRequest'
+  /api/v1/flags/{flagKey}/variants/:
     post:
       operationId: VariantsService.create
       tags:
@@ -339,15 +402,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VariantsfliptVariant'
+                $ref: '#/components/schemas/Variantsvariant'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VariantsfliptVariantCreate'
-  /flags/{flagKey}/variants/{id}:
+              $ref: '#/components/schemas/VariantsvariantCreateRequest'
+  /api/v1/flags/{flagKey}/variants/{id}:
     put:
       operationId: VariantsService.update
       tags:
@@ -369,16 +432,79 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VariantsfliptVariant'
+                $ref: '#/components/schemas/Variantsvariant'
       security: *ref_0
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VariantsfliptVariantUpdate'
+              $ref: '#/components/schemas/VariantsvariantUpdateRequest'
 components:
   schemas:
+    AuthauthenticationMethod:
+      type: string
+      enum:
+        - METHOD_NONE
+        - METHOD_TOKEN
+      description: The default is METHOD_NONE
+    Authauthentication:
+      type: object
+      properties:
+        id:
+          type: string
+        method:
+          $ref: '#/components/schemas/AuthauthenticationMethod'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+        - id
+        - method
+        - createdAt
+        - updatedAt
+        - metadata
+    AuthauthenticationList:
+      type: object
+      properties:
+        authentications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authauthentication'
+      required:
+        - authentications
+      allOf:
+        - $ref: '#/components/schemas/CommonsPageable'
+    AuthauthenticationTokenCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - name
+        - description
+    AuthauthenticationToken:
+      type: object
+      properties:
+        clientToken:
+          type: string
+      required:
+        - clientToken
     CommonsPageable:
       type: object
       properties:
@@ -389,7 +515,7 @@ components:
       required:
         - nextPageToken
         - totalCount
-    CommonsfliptComparisonType:
+    ConstraintsconstraintComparisonType:
       type: string
       enum:
         - UNKNOWN_COMPARISON_TYPE
@@ -397,11 +523,11 @@ components:
         - NUMBER_COMPARISON_TYPE
         - BOOLEAN_COMPARISON_TYPE
       description: The default is UNKNOWN_COMPARISON_TYPE
-    ConstraintsfliptConstraintCreateRequest:
+    ConstraintsconstraintCreateRequest:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/CommonsfliptComparisonType'
+          $ref: '#/components/schemas/ConstraintsconstraintComparisonType'
         property:
           type: string
         operator:
@@ -412,7 +538,7 @@ components:
         - type
         - property
         - operator
-    ConstraintsfliptConstraint:
+    Constraintsconstraint:
       type: object
       properties:
         id:
@@ -420,7 +546,7 @@ components:
         segmentKey:
           type: string
         type:
-          $ref: '#/components/schemas/CommonsfliptComparisonType'
+          $ref: '#/components/schemas/ConstraintsconstraintComparisonType'
         property:
           type: string
         operator:
@@ -442,11 +568,11 @@ components:
         - value
         - createdAt
         - updatedAt
-    ConstraintsfliptConstraintUpdateRequest:
+    ConstraintsconstraintUpdateRequest:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/CommonsfliptComparisonType'
+          $ref: '#/components/schemas/ConstraintsconstraintComparisonType'
         property:
           type: string
         operator:
@@ -457,7 +583,7 @@ components:
         - type
         - property
         - operator
-    DistributionsfliptDistribution:
+    Distributionsdistribution:
       type: object
       properties:
         id:
@@ -482,7 +608,7 @@ components:
         - rollout
         - createdAt
         - updatedAt
-    DistributionsfliptDistributionCreate:
+    DistributionsdistributionCreateRequest:
       type: object
       properties:
         variantId:
@@ -493,7 +619,7 @@ components:
       required:
         - variantId
         - rollout
-    DistributionsfliptDistributionUpdate:
+    DistributionsdistributionUpdateRequest:
       type: object
       properties:
         variantId:
@@ -504,7 +630,7 @@ components:
       required:
         - variantId
         - rollout
-    EvaluatefliptEvaluationRequest:
+    EvaluateevaluationRequest:
       type: object
       properties:
         requestId:
@@ -519,7 +645,7 @@ components:
         - flagKey
         - entityId
         - context
-    EvaluatefliptEvaluationResponse:
+    EvaluateevaluationResponse:
       type: object
       properties:
         requestId:
@@ -545,7 +671,7 @@ components:
         attachment:
           type: string
         reasons:
-          $ref: '#/components/schemas/EvaluatefliptEvaluationReason'
+          $ref: '#/components/schemas/EvaluateevaluationReason'
       required:
         - requestId
         - entityId
@@ -558,7 +684,7 @@ components:
         - requestDurationMillis
         - attachment
         - reasons
-    EvaluatefliptEvaluationReason:
+    EvaluateevaluationReason:
       type: string
       enum:
         - UNKNOWN_EVALUATION_REASON
@@ -566,7 +692,7 @@ components:
         - FLAG_NOT_FOUND_EVALUATION_REASON
         - MATCH_EVALUATION_REASON
         - ERROR_EVALUATION_REASON
-    EvaluatefliptBatchEvaluationRequest:
+    EvaluatebatchEvaluationRequest:
       type: object
       properties:
         requestId:
@@ -574,12 +700,12 @@ components:
         requests:
           type: array
           items:
-            $ref: '#/components/schemas/EvaluatefliptEvaluationRequest'
+            $ref: '#/components/schemas/EvaluateevaluationRequest'
         excludeNotFound:
           type: boolean
       required:
         - requests
-    EvaluatefliptBatchEvaluationResponse:
+    EvaluatebatchEvaluationResponse:
       type: object
       properties:
         requestId:
@@ -587,7 +713,7 @@ components:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/EvaluatefliptEvaluationResponse'
+            $ref: '#/components/schemas/EvaluateevaluationResponse'
         requestDurationMillis:
           type: number
           format: double
@@ -595,18 +721,18 @@ components:
         - requestId
         - response
         - requestDurationMillis
-    FlagsfliptFlagList:
+    FlagsflagList:
       type: object
       properties:
         flags:
           type: array
           items:
-            $ref: '#/components/schemas/FlagsfliptFlag'
+            $ref: '#/components/schemas/Flagsflag'
       required:
         - flags
       allOf:
         - $ref: '#/components/schemas/CommonsPageable'
-    FlagsfliptFlag:
+    Flagsflag:
       type: object
       properties:
         key:
@@ -626,7 +752,7 @@ components:
         variants:
           type: array
           items:
-            $ref: '#/components/schemas/VariantsfliptVariant'
+            $ref: '#/components/schemas/Variantsvariant'
       required:
         - key
         - name
@@ -635,7 +761,7 @@ components:
         - createdAt
         - updatedAt
         - variants
-    FlagsfliptCreateFlagRequest:
+    FlagsflagCreateRequest:
       type: object
       properties:
         key:
@@ -649,7 +775,7 @@ components:
       required:
         - key
         - name
-    FlagsfliptFlagUpdate:
+    FlagsflagUpdateRequest:
       type: object
       properties:
         name:
@@ -660,13 +786,13 @@ components:
           type: boolean
       required:
         - name
-    RulesfliptRuleList:
+    RulesruleList:
       type: object
       properties:
         rules:
           type: array
           items:
-            $ref: '#/components/schemas/RulesfliptRule'
+            $ref: '#/components/schemas/Rulesrule'
         nextPageToken:
           type: string
         totalCount:
@@ -675,7 +801,7 @@ components:
         - rules
         - nextPageToken
         - totalCount
-    RulesfliptRule:
+    Rulesrule:
       type: object
       properties:
         id:
@@ -687,7 +813,7 @@ components:
         distributions:
           type: array
           items:
-            $ref: '#/components/schemas/DistributionsfliptDistribution'
+            $ref: '#/components/schemas/Distributionsdistribution'
         rank:
           type: integer
         createdAt:
@@ -704,7 +830,7 @@ components:
         - rank
         - createdAt
         - updatedAt
-    RulesfliptRuleCreate:
+    RulesruleCreateRequest:
       type: object
       properties:
         segmentKey:
@@ -714,7 +840,7 @@ components:
       required:
         - segmentKey
         - rank
-    RulesfliptRuleOrder:
+    RulesruleOrder:
       type: object
       properties:
         ruleIds:
@@ -723,25 +849,25 @@ components:
             type: string
       required:
         - ruleIds
-    RulesfliptRuleUpdate:
+    RulesruleUpdateRequest:
       type: object
       properties:
         segmentKey:
           type: string
       required:
         - segmentKey
-    SegmentsfliptSegmentList:
+    SegmentssegmentList:
       type: object
       properties:
         segments:
           type: array
           items:
-            $ref: '#/components/schemas/SegmentsfliptSegment'
+            $ref: '#/components/schemas/Segmentssegment'
       required:
         - segments
       allOf:
         - $ref: '#/components/schemas/CommonsPageable'
-    SegmentsfliptSegment:
+    Segmentssegment:
       type: object
       properties:
         key:
@@ -759,9 +885,9 @@ components:
         constraints:
           type: array
           items:
-            $ref: '#/components/schemas/ConstraintsfliptConstraint'
+            $ref: '#/components/schemas/Constraintsconstraint'
         matchType:
-          $ref: '#/components/schemas/SegmentsfliptMatchType'
+          $ref: '#/components/schemas/SegmentssegmentMatchType'
       required:
         - key
         - name
@@ -770,12 +896,12 @@ components:
         - updatedAt
         - constraints
         - matchType
-    SegmentsfliptMatchType:
+    SegmentssegmentMatchType:
       type: string
       enum:
         - ALL_MATCH_TYPE
         - ANY_MATCH_TYPE
-    SegmentsfliptCreateSegmentRequest:
+    SegmentssegmentCreateRequest:
       type: object
       properties:
         key:
@@ -785,13 +911,13 @@ components:
         description:
           type: string
         matchType:
-          $ref: '#/components/schemas/SegmentsfliptMatchType'
+          $ref: '#/components/schemas/SegmentssegmentMatchType'
       required:
         - key
         - name
         - description
         - matchType
-    SegmentsfliptUpdateSegmentRequest:
+    SegmentssegmentUpdateRequest:
       type: object
       properties:
         name:
@@ -799,12 +925,12 @@ components:
         description:
           type: string
         matchType:
-          $ref: '#/components/schemas/SegmentsfliptMatchType'
+          $ref: '#/components/schemas/SegmentssegmentMatchType'
       required:
         - name
         - description
         - matchType
-    VariantsfliptVariant:
+    Variantsvariant:
       type: object
       properties:
         id:
@@ -834,7 +960,7 @@ components:
         - createdAt
         - updatedAt
         - attachment
-    VariantsfliptVariantCreate:
+    VariantsvariantCreateRequest:
       type: object
       properties:
         key:
@@ -847,7 +973,7 @@ components:
           type: string
       required:
         - key
-    VariantsfliptVariantUpdate:
+    VariantsvariantUpdateRequest:
       type: object
       properties:
         key:
@@ -865,4 +991,4 @@ components:
       type: http
       scheme: basic
 servers:
-  - url: https://flipt.io/api/v1
+  - url: http://localhost:8080
