@@ -1,6 +1,6 @@
 # Flipt API OpenAPI Description
 
-This repository contains [OpenAPI description](/openapi.yml) for <https://www.flipt.io/docs/api/flipt-core/v1.14.0>.
+This repository contains the [OpenAPI description](/openapi.yml) for the [Flipt REST API](https://www.flipt.io/docs/integration#rest-api).
 
 ## What is OpenAPI?
 
