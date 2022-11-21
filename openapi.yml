@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.0.25
+  version: 0.0.26
 paths:
   /auth/v1/tokens:
     get:
@@ -761,10 +761,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Authauthentication'
+        nextPageToken:
+          type: string
       required:
         - authentications
-      allOf:
-        - $ref: '#/components/schemas/CommonsPageable'
+        - nextPageToken
     AuthauthenticationTokenCreateRequest:
       type: object
       properties:
