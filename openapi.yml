@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.0.22
+  version: 0.0.4
 paths:
   /auth/v1/tokens:
     get:
-      operationId: AuthenticationService.listTokens
+      operationId: Authentication.listTokens
       tags:
-        - AuthenticationService
+        - Authentication
       parameters: []
       responses:
         '200':
@@ -20,9 +20,9 @@ paths:
         - BasicAuth: []
   /auth/v1/tokens/{id}:
     get:
-      operationId: AuthenticationService.getToken
+      operationId: Authentication.getToken
       tags:
-        - AuthenticationService
+        - Authentication
       parameters:
         - name: id
           in: path
@@ -38,9 +38,9 @@ paths:
                 $ref: '#/components/schemas/Authauthentication'
       security: *ref_0
     delete:
-      operationId: AuthenticationService.deleteToken
+      operationId: Authentication.deleteToken
       tags:
-        - AuthenticationService
+        - Authentication
       parameters:
         - name: id
           in: path
@@ -53,9 +53,9 @@ paths:
       security: *ref_0
   /auth/v1/method/token:
     post:
-      operationId: AuthenticationService.createToken
+      operationId: Authentication.createToken
       tags:
-        - AuthenticationService
+        - Authentication
       parameters: []
       responses:
         '200':
@@ -73,9 +73,9 @@ paths:
               $ref: '#/components/schemas/AuthauthenticationTokenCreateRequest'
   /auth/v1/self:
     get:
-      operationId: AuthenticationService.getSelf
+      operationId: Authentication.getSelf
       tags:
-        - AuthenticationService
+        - Authentication
       parameters: []
       responses:
         '200':
