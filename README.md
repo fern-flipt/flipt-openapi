@@ -10,4 +10,4 @@ From the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification):
 
 ## Issues
 
-Feel free to [leave an issue](https://github.com/fern-flipt/flipt-openapi/issues) on this repo.
+Feel free to [create an issue](https://github.com/fern-flipt/flipt-openapi/issues) on this repo.
