@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.0.23
+  version: 0.0.25
 paths:
   /auth/v1/tokens:
     get:
@@ -17,7 +17,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AuthauthenticationList'
       security: &ref_0
-        - BasicAuth: []
+        - BearerAuth: []
   /auth/v1/tokens/{id}:
     get:
       operationId: Authentication.getToken
@@ -1267,8 +1267,8 @@ components:
       required:
         - key
   securitySchemes:
-    BasicAuth:
+    BearerAuth:
       type: http
-      scheme: basic
+      scheme: bearer
 servers:
   - url: http://localhost:8080
