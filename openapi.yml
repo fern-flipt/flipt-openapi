@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.1.0
+  version: 0.1.1
 paths:
   /auth/v1/tokens:
     get:
@@ -85,7 +85,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Authauthentication'
       security: *ref_0
-  /api/v1/segments/{segmentKey}/constraints/:
+  /api/v1/segments/{segmentKey}/constraints:
     post:
       operationId: Constraints.create
       tags:
@@ -155,7 +155,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConstraintsconstraintUpdateRequest'
-  /api/v1/flags/{flagKey}/rules/{ruleId}/distributions/:
+  /api/v1/flags/{flagKey}/rules/{ruleId}/distributions:
     post:
       operationId: Distributions.create
       tags:
@@ -289,7 +289,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EvaluatebatchEvaluationRequest'
-  /api/v1/flags/:
+  /api/v1/flags:
     get:
       operationId: Flags.list
       tags:
@@ -394,7 +394,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FlagsflagUpdateRequest'
-  /api/v1/flags/{flagKey}/rules/:
+  /api/v1/flags/{flagKey}/rules:
     get:
       operationId: Rules.list
       tags:
@@ -541,7 +541,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RulesruleUpdateRequest'
-  /api/v1/segments/:
+  /api/v1/segments:
     get:
       operationId: Segments.list
       tags:
@@ -646,7 +646,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SegmentssegmentUpdateRequest'
-  /api/v1/flags/{flagKey}/variants/:
+  /api/v1/flags/{flagKey}/variants:
     post:
       operationId: Variants.create
       tags:
