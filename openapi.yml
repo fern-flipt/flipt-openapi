@@ -3,93 +3,11 @@ info:
   title: api
   version: 0.1.9
 paths:
-  /auth/v1/tokens:
-    get:
-      operationId: Authentication.listTokens
-      tags:
-        - Authentication
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthauthenticationList'
-      security: &ref_0
-        - BearerAuth: []
-  /auth/v1/tokens/{id}:
-    get:
-      operationId: Authentication.getToken
-      tags:
-        - Authentication
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authauthentication'
-      security: *ref_0
-    delete:
-      operationId: Authentication.deleteToken
-      tags:
-        - Authentication
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: ''
-      security: *ref_0
-  /auth/v1/self:
-    get:
-      operationId: Authentication.getSelf
-      tags:
-        - Authentication
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authauthentication'
-      security: *ref_0
-  /auth/v1/self/expire:
-    put:
-      operationId: Authentication.expireSelf
-      tags:
-        - Authentication
-      parameters: []
-      responses:
-        '204':
-          description: ''
-      security: *ref_0
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                expiresAt:
-                  type: string
-                  format: date-time
-  /auth/v1/method/token/:
+  /auth/v1/method/kubernetes/serviceaccount:
     post:
-      operationId: AuthenticationMethodToken.createToken
+      operationId: AuthMethodK8SService.verifyServiceAccount
       tags:
-        - AuthenticationMethodToken
+        - AuthMethodK8SService
       parameters: []
       responses:
         '200':
@@ -98,7 +16,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthauthenticationToken'
-      security: *ref_0
       requestBody:
         required: true
         content:
@@ -106,21 +23,15 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                serviceAccountToken:
                   type: string
-                description:
-                  type: string
-                expiresAt:
-                  type: string
-                  format: date-time
               required:
-                - name
-                - description
+                - serviceAccountToken
   /auth/v1/method/oidc/{provider}/authorize:
     get:
-      operationId: AuthenticationMethodOIDC.authorizeURL
+      operationId: AuthMethodOidcService.authorizeURL
       tags:
-        - AuthenticationMethodOIDC
+        - AuthMethodOidcService
       parameters:
         - name: provider
           in: path
@@ -138,12 +49,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthoidcAuthorizeURLResponse'
+                $ref: '#/components/schemas/AuthMethodOidcoidcAuthorizeURLResponse'
   /auth/v1/method/oidc/{provider}/callback:
     get:
-      operationId: AuthenticationMethodOIDC.callback
+      operationId: AuthMethodOidcService.callback
       tags:
-        - AuthenticationMethodOIDC
+        - AuthMethodOidcService
       parameters:
         - name: provider
           in: path
@@ -166,12 +77,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthoidcCallbackResponse'
-  /auth/v1/method/kubernetes/serviceaccount:
+                $ref: '#/components/schemas/AuthMethodOidcoidcCallbackResponse'
+  /auth/v1/method/token:
     post:
-      operationId: AuthenticationMethodKubernetes.verifyServiceAccount
+      operationId: AuthMethodTokenService.createToken
       tags:
-        - AuthenticationMethodKubernetes
+        - AuthMethodTokenService
       parameters: []
       responses:
         '200':
@@ -180,6 +91,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthauthenticationToken'
+      security: &ref_0
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -187,15 +100,102 @@ paths:
             schema:
               type: object
               properties:
-                serviceAccountToken:
+                name:
                   type: string
+                description:
+                  type: string
+                expiresAt:
+                  type: string
+                  format: date-time
               required:
-                - serviceAccountToken
+                - name
+                - description
+  /auth/v1/tokens:
+    get:
+      operationId: AuthService.listTokens
+      tags:
+        - AuthService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthauthenticationList'
+      security: *ref_0
+  /auth/v1/tokens/{id}:
+    get:
+      operationId: AuthService.getToken
+      tags:
+        - AuthService
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authauthentication'
+      security: *ref_0
+    delete:
+      operationId: AuthService.deleteToken
+      tags:
+        - AuthService
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+  /auth/v1/self:
+    get:
+      operationId: AuthService.getSelf
+      tags:
+        - AuthService
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authauthentication'
+      security: *ref_0
+  /auth/v1/self/expire:
+    put:
+      operationId: AuthService.expireSelf
+      tags:
+        - AuthService
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      security: *ref_0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expiresAt:
+                  type: string
+                  format: date-time
   /api/v1/segments/{segmentKey}/constraints:
     post:
-      operationId: Constraints.create
+      operationId: ConstraintsService.create
       tags:
-        - Constraints
+        - ConstraintsService
       parameters:
         - name: segmentKey
           in: path
@@ -231,9 +231,9 @@ paths:
                 - operator
   /api/v1/segments/{segmentKey}/constraints/{id}:
     delete:
-      operationId: Constraints.delete
+      operationId: ConstraintsService.delete
       tags:
-        - Constraints
+        - ConstraintsService
       parameters:
         - name: segmentKey
           in: path
@@ -250,9 +250,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Constraints.update
+      operationId: ConstraintsService.update
       tags:
-        - Constraints
+        - ConstraintsService
       parameters:
         - name: segmentKey
           in: path
@@ -289,9 +289,9 @@ paths:
                 - operator
   /api/v1/flags/{flagKey}/rules/{ruleId}/distributions:
     post:
-      operationId: Distributions.create
+      operationId: DistributionsService.create
       tags:
-        - Distributions
+        - DistributionsService
       parameters:
         - name: flagKey
           in: path
@@ -328,9 +328,9 @@ paths:
                 - rollout
   /api/v1/flags/{flagKey}/rules/{ruleId}/distributions/{id}:
     delete:
-      operationId: Distributions.delete
+      operationId: DistributionsService.delete
       tags:
-        - Distributions
+        - DistributionsService
       parameters:
         - name: flagKey
           in: path
@@ -357,9 +357,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Distributions.update
+      operationId: DistributionsService.update
       tags:
-        - Distributions
+        - DistributionsService
       parameters:
         - name: flagKey
           in: path
@@ -401,9 +401,9 @@ paths:
                 - rollout
   /api/v1/evaluate:
     post:
-      operationId: Evaluation.evaluate
+      operationId: EvaluateService.evaluate
       tags:
-        - Evaluation
+        - EvaluateService
       parameters: []
       responses:
         '200':
@@ -421,9 +421,9 @@ paths:
               $ref: '#/components/schemas/EvaluateevaluationRequest'
   /api/v1/batch-evaluate:
     post:
-      operationId: Evaluation.batchEvaluate
+      operationId: EvaluateService.batchEvaluate
       tags:
-        - Evaluation
+        - EvaluateService
       parameters: []
       responses:
         '200':
@@ -452,9 +452,9 @@ paths:
                 - requests
   /api/v1/flags:
     get:
-      operationId: Flags.list
+      operationId: FlagsService.list
       tags:
-        - Flags
+        - FlagsService
       parameters:
         - name: limit
           in: query
@@ -480,9 +480,9 @@ paths:
                 $ref: '#/components/schemas/FlagsflagList'
       security: *ref_0
     post:
-      operationId: Flags.create
+      operationId: FlagsService.create
       tags:
-        - Flags
+        - FlagsService
       parameters: []
       responses:
         '200':
@@ -512,9 +512,9 @@ paths:
                 - name
   /api/v1/flags/{key}:
     get:
-      operationId: Flags.get
+      operationId: FlagsService.get
       tags:
-        - Flags
+        - FlagsService
       parameters:
         - name: key
           in: path
@@ -530,9 +530,9 @@ paths:
                 $ref: '#/components/schemas/Flagsflag'
       security: *ref_0
     delete:
-      operationId: Flags.delete
+      operationId: FlagsService.delete
       tags:
-        - Flags
+        - FlagsService
       parameters:
         - name: key
           in: path
@@ -544,9 +544,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Flags.update
+      operationId: FlagsService.update
       tags:
-        - Flags
+        - FlagsService
       parameters:
         - name: key
           in: path
@@ -578,9 +578,9 @@ paths:
                 - name
   /api/v1/flags/{flagKey}/rules:
     get:
-      operationId: Rules.list
+      operationId: RulesService.list
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -611,9 +611,9 @@ paths:
                 $ref: '#/components/schemas/RulesruleList'
       security: *ref_0
     post:
-      operationId: Rules.create
+      operationId: RulesService.create
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -644,9 +644,9 @@ paths:
                 - rank
   /api/v1/flags/{flagKey}/rules/order:
     put:
-      operationId: Rules.order
+      operationId: RulesService.order
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -672,9 +672,9 @@ paths:
                 - ruleIds
   /api/v1/flags/{flagKey}/rules/{id}:
     get:
-      operationId: Rules.get
+      operationId: RulesService.get
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -695,9 +695,9 @@ paths:
                 $ref: '#/components/schemas/Rulesrule'
       security: *ref_0
     delete:
-      operationId: Rules.delete
+      operationId: RulesService.delete
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -714,9 +714,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Rules.update
+      operationId: RulesService.update
       tags:
-        - Rules
+        - RulesService
       parameters:
         - name: flagKey
           in: path
@@ -745,9 +745,9 @@ paths:
                 - segmentKey
   /api/v1/segments:
     get:
-      operationId: Segments.list
+      operationId: SegmentsService.list
       tags:
-        - Segments
+        - SegmentsService
       parameters:
         - name: limit
           in: query
@@ -773,9 +773,9 @@ paths:
                 $ref: '#/components/schemas/SegmentssegmentList'
       security: *ref_0
     post:
-      operationId: Segments.create
+      operationId: SegmentsService.create
       tags:
-        - Segments
+        - SegmentsService
       parameters: []
       responses:
         '200':
@@ -807,9 +807,9 @@ paths:
                 - matchType
   /api/v1/segments/{key}:
     get:
-      operationId: Segments.get
+      operationId: SegmentsService.get
       tags:
-        - Segments
+        - SegmentsService
       parameters:
         - name: key
           in: path
@@ -825,9 +825,9 @@ paths:
                 $ref: '#/components/schemas/Segmentssegment'
       security: *ref_0
     delete:
-      operationId: Segments.delete
+      operationId: SegmentsService.delete
       tags:
-        - Segments
+        - SegmentsService
       parameters:
         - name: key
           in: path
@@ -839,9 +839,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Segments.update
+      operationId: SegmentsService.update
       tags:
-        - Segments
+        - SegmentsService
       parameters:
         - name: key
           in: path
@@ -875,9 +875,9 @@ paths:
                 - matchType
   /api/v1/flags/{flagKey}/variants:
     post:
-      operationId: Variants.create
+      operationId: VariantsService.create
       tags:
-        - Variants
+        - VariantsService
       parameters:
         - name: flagKey
           in: path
@@ -911,9 +911,9 @@ paths:
                 - key
   /api/v1/flags/{flagKey}/variants/{id}:
     delete:
-      operationId: Variants.delete
+      operationId: VariantsService.delete
       tags:
-        - Variants
+        - VariantsService
       parameters:
         - name: flagKey
           in: path
@@ -930,9 +930,9 @@ paths:
           description: ''
       security: *ref_0
     put:
-      operationId: Variants.update
+      operationId: VariantsService.update
       tags:
-        - Variants
+        - VariantsService
       parameters:
         - name: flagKey
           in: path
@@ -971,12 +971,27 @@ paths:
                 - key
 components:
   schemas:
+    AuthMethodOidcoidcAuthorizeURLResponse:
+      type: object
+      properties:
+        authorizeUrl:
+          type: string
+      required:
+        - authorizeUrl
+    AuthMethodOidcoidcCallbackResponse:
+      type: object
+      properties:
+        authentication:
+          $ref: '#/components/schemas/Authauthentication'
+      required:
+        - authentication
     AuthauthenticationMethod:
       type: string
       enum:
         - METHOD_NONE
         - METHOD_TOKEN
         - METHOD_OIDC
+        - METHOD_KUBERNETES
       description: The default is METHOD_NONE
     Authauthentication:
       type: object
@@ -1025,20 +1040,6 @@ components:
           $ref: '#/components/schemas/Authauthentication'
       required:
         - clientToken
-        - authentication
-    AuthoidcAuthorizeURLResponse:
-      type: object
-      properties:
-        authorizeUrl:
-          type: string
-      required:
-        - authorizeUrl
-    AuthoidcCallbackResponse:
-      type: object
-      properties:
-        authentication:
-          $ref: '#/components/schemas/Authauthentication'
-      required:
         - authentication
     CommonsPageable:
       type: object
