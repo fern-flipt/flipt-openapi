@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: api
-  version: 0.2.8
+  version: 0.2.9
 paths:
   /evaluate/v1/boolean:
     post:
