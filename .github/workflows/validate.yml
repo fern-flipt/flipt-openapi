@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+name: Validate OpenAPI Schema
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate OpenAPI definition
+        uses: swaggerexpert/swagger-editor-validate@v1
+        with:
+          definition-file: openapi.yml

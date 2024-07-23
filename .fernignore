@@ -1,6 +1,0 @@
-# Specify files that shouldn't be modified by Fern
-
-*.md
-.github
-.release-please-manifest.json
-release-please-config.json
