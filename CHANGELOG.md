@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.47.0](https://github.com/flipt-io/flipt-openapi/compare/1.46.0...1.47.0) (2024-07-29)
+
+
+### Features
+
+* add default variant id ([#23](https://github.com/flipt-io/flipt-openapi/issues/23)) ([4b31519](https://github.com/flipt-io/flipt-openapi/commit/4b315193414a4aa3d33254ba239b9a00980995aa))
+
 ## [1.46.0](https://github.com/flipt-io/flipt-openapi/compare/0.2.18...1.46.0) (2024-07-23)
 
 
