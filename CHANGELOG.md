@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.47.1](https://github.com/flipt-io/flipt-openapi/compare/1.47.0...1.47.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* batch evaluation req/resp types ([#26](https://github.com/flipt-io/flipt-openapi/issues/26)) ([bf6177d](https://github.com/flipt-io/flipt-openapi/commit/bf6177da67e0d2b1e1b7d5c8619e0fab3cc9053b))
+
 ## [1.47.0](https://github.com/flipt-io/flipt-openapi/compare/1.46.0...1.47.0) (2024-07-29)
 
 
